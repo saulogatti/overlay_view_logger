@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:overlay_view_logger/src/view/overlay_app_view.dart';
+import 'overlay_app_view.dart';
 
 class OverlayAppViewManager {
   static OverlayEntry? overlayEntry;

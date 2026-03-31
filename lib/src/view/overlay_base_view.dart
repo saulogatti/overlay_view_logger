@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overlay_view_logger/src/view/controllers/overlay_bloc.dart';
-import 'package:overlay_view_logger/src/view/controllers/overlay_bloc_state.dart';
-import 'package:overlay_view_logger/src/view/widgets/list_widget.dart';
+import 'controllers/overlay_bloc.dart';
+import 'controllers/overlay_bloc_state.dart';
+import 'widgets/list_widget.dart';
 
 class OverlayBaseView extends StatefulWidget {
   const OverlayBaseView({super.key});

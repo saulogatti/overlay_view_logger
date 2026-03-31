@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
+import '../../domain/entities/register_entitie.dart';
 
 class CardWidget extends StatelessWidget {
   final RegisterEntity register;

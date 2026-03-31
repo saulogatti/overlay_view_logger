@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
+import '../../domain/entities/register_entitie.dart';
 
 part 'register_model.g.dart';
 

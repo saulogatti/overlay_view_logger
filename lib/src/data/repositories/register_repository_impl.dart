@@ -1,7 +1,7 @@
-import 'package:overlay_view_logger/src/core/errors/error_obj.dart';
-import 'package:overlay_view_logger/src/core/result/result_obj.dart';
-import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
-import 'package:overlay_view_logger/src/domain/repositories/register_repository.dart';
+import '../../core/errors/error_obj.dart';
+import '../../core/result/result_obj.dart';
+import '../../domain/entities/register_entitie.dart';
+import '../../domain/repositories/register_repository.dart';
 
 class RegisterRepositoryImpl implements RegisterRepository {
   @override

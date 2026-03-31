@@ -8,7 +8,6 @@ part of 'register_model.dart';
 
 RegisterModel _$RegisterModelFromJson(Map<String, dynamic> json) =>
     RegisterModel(
-      id: (json['id'] as num).toInt(),
       title: json['title'] as String,
       description: json['description'] as String,
       tag: json['tag'] as String,
@@ -24,7 +23,6 @@ RegisterModel _$RegisterModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RegisterModelToJson(RegisterModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'title': instance.title,
       'description': instance.description,
       'tag': instance.tag,

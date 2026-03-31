@@ -1,3 +1,5 @@
+import 'package:overlay_view_logger/src/core/type_register.dart';
+
 import '../../core/errors/error_obj.dart';
 import '../../core/result/result_obj.dart';
 import '../entities/register_entitie.dart';

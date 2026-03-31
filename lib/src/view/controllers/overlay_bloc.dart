@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:overlay_view_logger/src/core/type_register.dart';
 import '../../domain/entities/register_entitie.dart';
 import '../../domain/repositories/register_repository.dart';
 import 'overlay_bloc_state.dart';

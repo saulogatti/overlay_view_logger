@@ -7,7 +7,7 @@ final class DiskStorageError implements Exception {
   ///
   /// Utilize [DiskStorageError] para capturar e tratar falhas nas operações de leitura, escrita,
   /// deleção ou criação de diretórios/arquivos realizadas pelo helper de armazenamento em disco.
-  /// 
+  ///
   /// Cada erro é especificado pelo tipo [DiskStorageErrorEnum] e pode conter uma mensagem
   /// explicativa e o [StackTrace] do momento da exceção.
   const DiskStorageError({
@@ -25,7 +25,7 @@ final class DiskStorageError implements Exception {
 /// Enumeração dos tipos de erro possíveis ao manipular arquivos e diretórios em disco.
 ///
 /// - [directoryPathIsEmpty]: O caminho do diretório fornecido está vazio.
-/// - [directoryPathContainsPathSeparator]: O caminho do diretório contém separador de caminho.
+/// - [directoryPathNotContainsPathSeparator]: O caminho do diretório não contém separador de caminho.
 /// - [fileNameIsEmpty]: O nome do arquivo fornecido está vazio.
 /// - [fileNameContainsPathSeparator]: O nome do arquivo contém separador de caminho.
 /// - [fileNameWithoutExtension]: O nome do arquivo não possui extensão.
@@ -33,10 +33,10 @@ final class DiskStorageError implements Exception {
 /// - [fileExists]: O arquivo já existe.
 enum DiskStorageErrorEnum {
   directoryPathIsEmpty,
-  directoryPathContainsPathSeparator,
   fileNameIsEmpty,
   fileNameContainsPathSeparator,
   fileNameWithoutExtension,
   fileDoesNotExist,
   fileExists,
+  directoryPathNotContainsPathSeparator,
 }

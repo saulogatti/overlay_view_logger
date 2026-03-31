@@ -28,7 +28,7 @@ final class DiskStorage {
     required String directoryPath,
     required String fileName,
   }) async {
-    final File file = File(_filePath(directoryPath, fileName));
+    final File file = File(_getFilePath(directoryPath, fileName));
     if (await file.exists()) {
       await file.delete();
     }
@@ -54,11 +54,11 @@ final class DiskStorage {
         stackTrace: StackTrace.current,
       );
     }
-    if (directoryPath.contains(Platform.pathSeparator)) {
+    if (!directoryPath.contains(Platform.pathSeparator)) {
       throw DiskStorageError(
         message:
-            'caminho do diretório contém separador de caminho $directoryPath',
-        errorEnum: DiskStorageErrorEnum.directoryPathContainsPathSeparator,
+            'caminho do diretório não tem separador de caminho $directoryPath',
+        errorEnum: DiskStorageErrorEnum.directoryPathNotContainsPathSeparator,
         stackTrace: StackTrace.current,
       );
     }
@@ -84,7 +84,7 @@ final class DiskStorage {
     required String directoryPath,
     required String fileName,
   }) async {
-    return await File(_filePath(directoryPath, fileName)).exists();
+    return await File(_getFilePath(directoryPath, fileName)).exists();
   }
 
   /// Recupera o conteudo de um arquivo de texto.
@@ -103,7 +103,7 @@ final class DiskStorage {
     required String directoryPath,
     required String fileName,
   }) async {
-    final File file = File(_filePath(directoryPath, fileName));
+    final File file = File(_getFilePath(directoryPath, fileName));
     if (!await file.exists()) {
       return null;
     }
@@ -122,15 +122,15 @@ final class DiskStorage {
   /// print(file.path); // registers/registers.json
   /// ```
   ///
-  static Future<File> saveString({
+  static Future<void> saveString({
     required String directoryPath,
     required String fileName,
     required String content,
     bool append = false,
   }) async {
     await ensureDirectoryExists(directoryPath);
-    final File file = File(_filePath(directoryPath, fileName));
-    return await file.writeAsString(
+    final File file = File(_getFilePath(directoryPath, fileName));
+    await file.writeAsString(
       content,
       mode: append ? FileMode.append : FileMode.write,
       flush: true,
@@ -141,22 +141,21 @@ final class DiskStorage {
   ///
   /// Retorna o caminho completo do arquivo.
   ///
-  /// Lança uma exceção se o nome do arquivo ou o caminho do diretório estiver vazio ou contiver separador de caminho.
   /// Lança uma exceção se o nome do arquivo não tiver extensão.
   ///
   /// Exemplo de uso:
   /// ```dart
-  /// final filePath = _filePath('registers', 'registers.json');
-  /// print(filePath); // registers/registers.json
+  /// final filePath = _getFilePath('registers/debug', 'registers.json');
+  /// print(filePath); // registers/debug/registers.json
   /// ```
   ///
   /// Exemplo de uso:
   /// ```dart
-  /// final filePath = _filePath('registers', 'registers.json');
-  /// print(filePath); // registers/registers.json
+  /// final filePath = _getFilePath('registers/debug', 'registers.json');
+  /// print(filePath); // registers/debug/registers.json
   /// ```
   ///
-  static String _filePath(String directoryPath, String fileName) {
+  static String _getFilePath(String directoryPath, String fileName) {
     if (fileName.isEmpty) {
       throw DiskStorageError(
         message: 'nome do arquivo está vazio',
@@ -171,6 +170,7 @@ final class DiskStorage {
         stackTrace: StackTrace.current,
       );
     }
+
     if (fileName.contains(Platform.pathSeparator)) {
       throw DiskStorageError(
         message: 'nome do arquivo contém separador de caminho $fileName',
@@ -178,14 +178,7 @@ final class DiskStorage {
         stackTrace: StackTrace.current,
       );
     }
-    if (directoryPath.contains(Platform.pathSeparator)) {
-      throw DiskStorageError(
-        message:
-            'caminho do diretório contém separador de caminho $directoryPath',
-        errorEnum: DiskStorageErrorEnum.directoryPathContainsPathSeparator,
-        stackTrace: StackTrace.current,
-      );
-    }
+
     final extensionFile = path.extension(fileName);
     if (extensionFile.isEmpty) {
       throw DiskStorageError(

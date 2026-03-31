@@ -40,11 +40,8 @@ class RegisterRepositoryImpl implements RegisterRepository {
     required TypeRegister type,
   }) async {
     try {
-      final registers = await dataManager.getAllRegisters();
-      final registersByType = registers
-          .where((element) => element.typeRegister == type)
-          .toList();
-      return Result.success(registersByType);
+      final registers = await dataManager.getRegistersByType(type);
+      return Result.success(registers);
     } on Exception catch (error, stackTrace) {
       return Result.failure(
         ErrorObj(message: error.toString(), description: stackTrace.toString()),

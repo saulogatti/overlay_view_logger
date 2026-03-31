@@ -1,5 +1,6 @@
+import 'package:overlay_view_logger/src/core/type_register.dart';
 import 'package:overlay_view_logger/src/data/datasource/register_datasource_provider.dart';
-import 'package:overlay_view_logger/src/data/models/map_type_registers_model.dart';
+import 'package:overlay_view_logger/src/data/models/list_type_registers_model.dart';
 import 'package:overlay_view_logger/src/data/models/register_model.dart';
 import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
 
@@ -9,44 +10,55 @@ import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
 /// adiciona na lista de registros e devolve a lista de registros tipo TypeRegister
 class DataManager {
   final RegisterDataSourceProvider registerProvider;
-  MapTypeRegistersModel _mapTypeRegisters = MapTypeRegistersModel(
-    registers: {},
-  );
-  late Future<void> _futureInitData;
-  DataManager({required this.registerProvider}) {
-    _futureInitData = _initData();
-  }
+
+  final Map<TypeRegister, ListTypeRegistersModel> _mapTypeRegisters = {};
+
+  DataManager({required this.registerProvider});
   Future<void> addRegister(RegisterEntity register) async {
-    await _futureInitData;
-    _mapTypeRegisters.addRegister(
-      RegisterModel(
-        title: register.title,
-        description: register.description,
-        tag: register.tag,
-        typeObject: register.typeObject,
-        typeRegister: register.typeRegister,
-        updatedAt: register.updatedAt,
-      ),
+    (await _getTypeRegisters(
+      register.typeRegister,
+    )).addRegister(RegisterModel.fromEntity(register));
+    await registerProvider.saveData(
+      await _getTypeRegisters(register.typeRegister),
     );
-    await _saveData();
   }
 
   Future<List<RegisterEntity>> getAllRegisters() async {
-    await _futureInitData;
-    return _mapTypeRegisters
-        .getAllRegisters()
-        .expand((element) => element)
-        .toList()
-        .map((e) => RegisterModel.toEntity(e))
-        .toList();
+    if (_mapTypeRegisters.keys.length != TypeRegister.values.length) {
+      for (final typeRegister in TypeRegister.values) {
+        final listTypeRegistersModel = await _getTypeRegisters(typeRegister);
+        _mapTypeRegisters[typeRegister] = listTypeRegistersModel;
+      }
+    }
+    final listRegistersEntities = <RegisterEntity>[];
+    for (final typeRegister in TypeRegister.values) {
+      listRegistersEntities.addAll(
+        _mapTypeRegisters[typeRegister]!.listRegistersEntities,
+      );
+    }
+    return listRegistersEntities;
   }
 
-  Future<void> _initData() async {
-    _mapTypeRegisters = await registerProvider.getData();
+  Future<List<RegisterEntity>> getRegistersByType(
+    TypeRegister typeRegister,
+  ) async {
+    final listTypeRegistersModel = await _getTypeRegisters(typeRegister);
+    return listTypeRegistersModel.listRegistersEntities;
   }
 
-  Future<void> _saveData() async {
-    await _futureInitData;
-    await registerProvider.saveData(_mapTypeRegisters);
+  Future<ListTypeRegistersModel> _getTypeRegisters(
+    TypeRegister typeRegister,
+  ) async {
+    if (_mapTypeRegisters.containsKey(typeRegister)) {
+      return _mapTypeRegisters[typeRegister]!;
+    }
+    final listTypeRegistersModel = await registerProvider.getData(typeRegister);
+    _mapTypeRegisters[typeRegister] = listTypeRegistersModel;
+    return listTypeRegistersModel;
   }
+}
+
+extension on ListTypeRegistersModel {
+  List<RegisterEntity> get listRegistersEntities =>
+      listRegisters.map((e) => RegisterModel.toEntity(e)).toList();
 }

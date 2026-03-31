@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overlay_view_logger/src/core/type_register.dart';
+import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
+
 import 'controllers/overlay_bloc.dart';
 import 'controllers/overlay_bloc_state.dart';
 import 'widgets/list_widget.dart';
@@ -16,10 +19,9 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
   Widget build(BuildContext context) {
     return BlocBuilder<OverlayBloc, OverlayBlocState>(
       builder: (context, state) {
+        print(state);
         return switch (state) {
-          OverlayBlocStateInitial() => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          OverlayBlocStateInitial() => _buildSuccessEmpty(),
           OverlayBlocStateLoading() => const Center(
             child: CircularProgressIndicator(),
           ),
@@ -28,11 +30,30 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
           ),
           OverlayBlocStateSuccess(registers: final registers) =>
             registers.isEmpty
-                ? const Center(child: Text('Nenhum registro encontrado'))
-                : ListWidget(registers: registers),
-          OverlayBlocStateSuccessEmpty() => const Center(
-            child: Center(child: Text('Nenhum registro adicionado ainda')),
-          ),
+                ? _buildSuccessEmpty()
+                : Column(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          context.read<OverlayBloc>().getRegistersByType(
+                            TypeRegister.debug,
+                          );
+                        },
+                        child: const Text('Pagar registros'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.read<OverlayBloc>().getRegistersByType(
+                            TypeRegister.info,
+                          );
+                        },
+                        child: const Text('Pagar registros'),
+                      ),
+                      _buildSuccessEmpty(),
+                      Expanded(child: ListWidget(registers: registers)),
+                    ],
+                  ),
+          OverlayBlocStateSuccessEmpty() => _buildSuccessEmpty(),
         };
       },
     );
@@ -42,5 +63,54 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
   void initState() {
     super.initState();
     context.read<OverlayBloc>().getAllRegisters();
+  }
+
+  Widget _buildSuccessEmpty() {
+    return Center(
+      child: TextButton(
+        onPressed: () {
+          context.read<OverlayBloc>().addRegister(
+            RegisterEntity(
+              title: 'Teste',
+              description: 'Teste',
+              tag: 'Teste',
+              typeObject: 'Teste',
+              typeRegister: TypeRegister.debug,
+            ),
+          );
+          context.read<OverlayBloc>().addRegister(
+            RegisterEntity(
+              title: 'Teste',
+              description: 'Teste',
+              tag: 'Teste',
+              typeObject: 'Teste',
+              typeRegister: TypeRegister.info,
+            ),
+          );
+          context.read<OverlayBloc>().addRegister(
+            RegisterEntity(
+              title: 'Teste',
+              description: 'Teste',
+              tag: 'Teste',
+              typeObject: 'Teste',
+              typeRegister: TypeRegister.warning,
+            ),
+          );
+          context.read<OverlayBloc>().addRegister(
+            RegisterEntity(
+              title: 'Teste',
+              description: 'Teste',
+              tag: 'Teste',
+              typeObject: 'Teste',
+              typeRegister: TypeRegister.error,
+            ),
+          );
+          Future.delayed(const Duration(seconds: 1), () {
+            context.read<OverlayBloc>().getAllRegisters();
+          });
+        },
+        child: const Text('Adicionar registro'),
+      ),
+    );
   }
 }

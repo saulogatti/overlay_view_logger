@@ -1,8 +1,8 @@
-import 'package:overlay_view_logger/src/data/models/list_registers_model.dart';
+import 'package:overlay_view_logger/src/data/models/map_type_registers_model.dart';
 
 // Nome da classe ? RegisterDataSourceProvider
 abstract interface class RegisterDataSourceProvider {
-  Future<ListRegistersModel> getListRegisters();
+  Future<MapTypeRegistersModel> getListRegisters();
 
-  Future<void> saveListRegisters(ListRegistersModel listRegisters);
+  Future<void> saveListRegisters(MapTypeRegistersModel listRegisters);
 }

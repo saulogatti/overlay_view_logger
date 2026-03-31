@@ -9,7 +9,7 @@ part of 'map_type_registers_model.dart';
 MapTypeRegistersModel _$MapTypeRegistersModelFromJson(
   Map<String, dynamic> json,
 ) => MapTypeRegistersModel(
-  registers: (json['registers'] as Map<String, dynamic>).map(
+  registers: (json['registers'] as Map<String, dynamic>?)?.map(
     (k, e) => MapEntry(
       $enumDecode(_$TypeRegisterEnumMap, k),
       (e as List<dynamic>)
@@ -23,7 +23,8 @@ Map<String, dynamic> _$MapTypeRegistersModelToJson(
   MapTypeRegistersModel instance,
 ) => <String, dynamic>{
   'registers': instance.registers.map(
-    (k, e) => MapEntry(_$TypeRegisterEnumMap[k]!, e),
+    (k, e) =>
+        MapEntry(_$TypeRegisterEnumMap[k]!, e.map((e) => e.toJson()).toList()),
   ),
 };
 

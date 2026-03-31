@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:overlay_view_logger/src/data/datasource/helpers/disk_storage.dart';
-import 'package:overlay_view_logger/src/data/datasource/register_provider.dart';
+import 'package:overlay_view_logger/src/data/datasource/register_datasource_provider.dart';
 import 'package:overlay_view_logger/src/data/models/map_type_registers_model.dart';
 
 class JsonObjectRegisterDataSource implements RegisterDataSourceProvider {
@@ -11,7 +11,7 @@ class JsonObjectRegisterDataSource implements RegisterDataSourceProvider {
   JsonObjectRegisterDataSource();
 
   @override
-  Future<MapTypeRegistersModel> getListRegisters() async {
+  Future<MapTypeRegistersModel> getData() async {
     final registers = await DiskStorage.readString(
       directoryPath: _directoryPath,
       fileName: _fileName,
@@ -29,11 +29,11 @@ class JsonObjectRegisterDataSource implements RegisterDataSourceProvider {
   }
 
   @override
-  Future<void> saveListRegisters(MapTypeRegistersModel listRegisters) async {
+  Future<void> saveData(MapTypeRegistersModel data) async {
     await DiskStorage.saveString(
       directoryPath: _directoryPath,
       fileName: _fileName,
-      content: jsonEncode(listRegisters.toJson()),
+      content: jsonEncode(data.toJson()),
     );
   }
 }

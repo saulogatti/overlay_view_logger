@@ -1,6 +1,6 @@
 import 'package:overlay_view_logger/src/core/type_register.dart';
-import 'package:overlay_view_logger/src/data/datasource/data_manager.dart';
 import 'package:overlay_view_logger/src/data/datasource/drivers/json_object_manager.dart';
+import 'package:overlay_view_logger/src/data/manager/data_manager.dart';
 
 import '../../core/errors/error_obj.dart';
 import '../../core/result/result_obj.dart';
@@ -14,7 +14,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
   @override
   Future<Result<void, ErrorObj>> addRegister(RegisterEntity register) async {
     try {
-      await dataManager.saveListRegisters(register);
+      await dataManager.addRegister(register);
       return Result.success(null);
     } on Exception catch (error, stackTrace) {
       return Result.failure(
@@ -26,7 +26,7 @@ class RegisterRepositoryImpl implements RegisterRepository {
   @override
   Future<Result<List<RegisterEntity>, ErrorObj>> getAllRegisters() async {
     try {
-      final registers = await dataManager.getListRegisters();
+      final registers = await dataManager.getAllRegisters();
       return Result.success(registers);
     } on Exception catch (error, stackTrace) {
       return Result.failure(
@@ -40,8 +40,11 @@ class RegisterRepositoryImpl implements RegisterRepository {
     required TypeRegister type,
   }) async {
     try {
-      final registers = await dataManager.getRegistersByType(type: type);
-      return Result.success(registers);
+      final registers = await dataManager.getAllRegisters();
+      final registersByType = registers
+          .where((element) => element.typeRegister == type)
+          .toList();
+      return Result.success(registersByType);
     } on Exception catch (error, stackTrace) {
       return Result.failure(
         ErrorObj(message: error.toString(), description: stackTrace.toString()),

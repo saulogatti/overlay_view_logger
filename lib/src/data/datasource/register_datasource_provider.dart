@@ -2,7 +2,7 @@ import 'package:overlay_view_logger/src/data/models/map_type_registers_model.dar
 
 // Nome da classe ? RegisterDataSourceProvider
 abstract interface class RegisterDataSourceProvider {
-  Future<MapTypeRegistersModel> getListRegisters();
+  Future<MapTypeRegistersModel> getData();
 
-  Future<void> saveListRegisters(MapTypeRegistersModel listRegisters);
+  Future<void> saveData(MapTypeRegistersModel data);
 }

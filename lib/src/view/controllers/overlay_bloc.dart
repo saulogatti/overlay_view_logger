@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:overlay_register/src/domain/entities/register_entitie.dart';
-import 'package:overlay_register/src/domain/repositories/register_repository.dart';
-import 'package:overlay_register/src/view/controllers/overlay_bloc_state.dart';
+import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
+import 'package:overlay_view_logger/src/domain/repositories/register_repository.dart';
+import 'package:overlay_view_logger/src/view/controllers/overlay_bloc_state.dart';
 
 class OverlayBloc extends Cubit<OverlayBlocState> {
   late final RegisterRepository _registerRepository;

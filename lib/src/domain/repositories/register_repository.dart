@@ -1,6 +1,6 @@
-import 'package:overlay_register/src/core/errors/error_obj.dart';
-import 'package:overlay_register/src/core/result/result_obj.dart';
-import 'package:overlay_register/src/domain/entities/register_entitie.dart';
+import 'package:overlay_view_logger/src/core/errors/error_obj.dart';
+import 'package:overlay_view_logger/src/core/result/result_obj.dart';
+import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
 
 abstract interface class RegisterRepository {
   Future<Result<void, ErrorObj>> addRegister(RegisterEntity register);

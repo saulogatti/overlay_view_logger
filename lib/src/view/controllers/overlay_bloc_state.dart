@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:overlay_register/src/core/errors/error_obj.dart';
-import 'package:overlay_register/src/domain/entities/register_entitie.dart';
+import 'package:overlay_view_logger/src/core/errors/error_obj.dart';
+import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
 
 part 'overlay_bloc_state.freezed.dart';
 

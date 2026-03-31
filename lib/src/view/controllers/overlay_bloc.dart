@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:overlay_view_logger/src/core/result/result_obj.dart';
 import 'package:overlay_view_logger/src/core/type_register.dart';
+
 import '../../domain/entities/register_entitie.dart';
 import '../../domain/repositories/register_repository.dart';
 import 'overlay_bloc_state.dart';
@@ -17,10 +19,12 @@ class OverlayBloc extends Cubit<OverlayBlocState> {
   Future<void> addRegister(RegisterEntity register) async {
     emit(const OverlayBlocState.loading());
     final result = await _registerRepository.addRegister(register);
-    result.fold(
-      onSuccess: (_) => emit(const OverlayBlocState.successEmpty()),
-      onFailure: (error) => emit(OverlayBlocState.error(error: error)),
-    );
+    switch (result) {
+      case Success(value: final _):
+        emit(const OverlayBlocState.successEmpty());
+      case Failure(:final error):
+        emit(OverlayBlocState.error(error: error));
+    }
   }
 
   /// Pega todos os registros

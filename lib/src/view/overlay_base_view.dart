@@ -105,9 +105,7 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
               typeRegister: TypeRegister.error,
             ),
           );
-          Future.delayed(const Duration(seconds: 1), () {
-            context.read<OverlayBloc>().getAllRegisters();
-          });
+          context.read<OverlayBloc>().getAllRegisters();
         },
         child: const Text('Adicionar registro'),
       ),

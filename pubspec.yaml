@@ -31,6 +31,7 @@ dependencies:
   meta: ^1.17.0
   freezed_annotation: ^3.1.0
   provider: ^6.1.5+1
+  path: ^1.9.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

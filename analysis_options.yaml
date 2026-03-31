@@ -1,0 +1,48 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-raw-types: true
+    strict-inference: true
+    
+  errors:
+    prefer_relative_imports: error
+    unnecessary_null_checks: error
+    unnecessary_null_comparison: error
+    unnecessary_type_check: error
+    dead_code: error
+    deprecated_consistency: error
+    deprecated_extend: error
+    deprecated_implement: error
+    deprecated_instantiate: error
+    deprecated_lint: error
+    deprecated_member_use_from_same_package: error
+    deprecated_mixin: error
+    must_call_super: error
+    prefer_const_constructors: warning
+    prefer_const_literals_to_create_immutables: warning
+    prefer_final_locals: warning
+    unnecessary_null_in_if_null_operators: error
+    unnecessary_nullable_for_final_variable_declarations: error
+    unused_import: warning
+    unused_local_variable: error
+    async_for_in_wrong_context: error
+    await_only_futures: error
+    unnecessary_async: error
+    unnecessary_await_in_return: error
+    avoid_types_on_closure_parameters: error
+    todo: warning
+    
+linter:
+  rules:
+    - always_put_required_named_parameters_first
+    - avoid_void_async
+    - unnecessary_async
+    - unnecessary_await_in_return
+    - await_only_futures
+    - prefer_final_locals
+    - use_build_context_synchronously
+    - prefer_const_constructors
+    - prefer_const_literals_to_create_immutables
+    - avoid_types_on_closure_parameters

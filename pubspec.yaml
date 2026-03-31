@@ -1,0 +1,34 @@
+name: overlay_register
+description: "Overlay Register"
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^3.11.4
+  flutter: ">=3.41.6"
+
+dependencies:
+  bloc: ^9.2.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+ 
+  json_annotation: ^4.11.0
+  meta: ^1.17.0
+  freezed_annotation: ^3.1.0
+  provider: ^6.1.5+1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.13.1
+  json_serializable: ^6.13.1
+  freezed: ^3.2.5
+  
+
+ 
+flutter:
+  uses-material-design: true
+
+
+  

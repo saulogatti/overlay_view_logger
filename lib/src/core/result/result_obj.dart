@@ -1,6 +1,10 @@
 final class Failure<S, F> extends Result<S, F> {
   final F error;
   const Failure(this.error);
+  @override
+  String toString() {
+    return 'Failure(error: $error)';
+  }
 }
 
 /// Uma implementação leve do padrão Result para Clean Architecture.
@@ -39,6 +43,11 @@ sealed class Result<S, F> {
       Success<S, F>(value: final S v) => onSuccess(v),
       Failure<S, F>(error: final F e) => onFailure(e),
     };
+  }
+
+  @override
+  String toString() {
+    return 'Result(isSuccess: $isSuccess, isFailure: $isFailure)';
   }
 
   /// Alias semântico para [fold], mantido por legibilidade e familiaridade
@@ -87,6 +96,10 @@ sealed class Result<S, F> {
 final class Success<S, F> extends Result<S, F> {
   final S value;
   const Success(this.value);
+  @override
+  String toString() {
+    return 'Success(value: $value)';
+  }
 }
 
 extension ResultExtension<S, F> on Result<S, F> {

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:overlay_register/src/core/errors/error_obj.dart';
-import 'package:overlay_register/src/domain/entities/register_entitie.dart';
+import '../../core/errors/error_obj.dart';
+import '../../domain/entities/register_entitie.dart';
 
 part 'overlay_bloc_state.freezed.dart';
 
@@ -13,5 +13,5 @@ sealed class OverlayBlocState with _$OverlayBlocState {
   const factory OverlayBlocState.success({
     required List<RegisterEntity> registers,
   }) = OverlayBlocStateSuccess;
-  const factory OverlayBlocState.successEmpty() = OverlayBlocStateSuccessEmpty;
+  
 }

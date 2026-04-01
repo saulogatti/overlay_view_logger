@@ -1,5 +1,13 @@
+import 'package:overlay_view_logger/src/core/type_register.dart';
+
+/// Entidade de registro
+/// Tem apenas lista de tipos de registro (debug, info, warning, error)
+/// Não tem id, pois é gerado pelo sistema
+/// Tem createdAt e updatedAt, pois é gerado pelo sistema
+/// Tem title, description, tag, typeObject, typeRegister
+/// Tem createdAt e updatedAt, pois é gerado pelo sistema
+/// Tem createdAt e updatedAt, pois é gerado pelo sistema
 class RegisterEntity {
-  final int id;
   final String title;
   final String description;
   final String tag;
@@ -9,7 +17,6 @@ class RegisterEntity {
   final DateTime updatedAt;
 
   RegisterEntity({
-    required this.id,
     required this.title,
     required this.description,
     required this.tag,
@@ -19,6 +26,9 @@ class RegisterEntity {
     DateTime? updatedAt,
   }) : createdAt = createdAt ?? DateTime.now(),
        updatedAt = updatedAt ?? DateTime.now();
-}
 
-enum TypeRegister { debug, info, warning, error }
+  @override
+  String toString() {
+    return 'RegisterEntity(title: $title, description: $description, tag: $tag, typeObject: $typeObject, typeRegister: $typeRegister, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+}

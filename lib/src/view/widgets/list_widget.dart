@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:overlay_register/src/domain/entities/register_entitie.dart';
-import 'package:overlay_register/src/view/widgets/card_widget.dart';
+import '../../domain/entities/register_entitie.dart';
+import 'card_widget.dart';
 
 class ListWidget extends StatelessWidget {
   final List<RegisterEntity> registers;

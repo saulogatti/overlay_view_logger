@@ -30,7 +30,7 @@ analyzer:
     async_for_in_wrong_context: error
     await_only_futures: error
     unnecessary_async: error
-    unnecessary_await_in_return: error
+    unnecessary_await_in_return: ignore
     avoid_types_on_closure_parameters: error
     todo: warning
     

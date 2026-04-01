@@ -14,13 +14,13 @@ class DataManager {
   final Map<TypeRegister, ListTypeRegistersModel> _mapTypeRegisters = {};
 
   DataManager({required this.registerProvider});
-  Future<void> addRegister(RegisterEntity register) async {
-    (await _getTypeRegisters(
+  Future<List<RegisterEntity>> addRegister(RegisterEntity register) async {
+    final listTypeRegistersModel = await _getTypeRegisters(
       register.typeRegister,
-    )).addRegister(RegisterModel.fromEntity(register));
-    await registerProvider.saveData(
-      await _getTypeRegisters(register.typeRegister),
     );
+    listTypeRegistersModel.addRegister(RegisterModel.fromEntity(register));
+    await registerProvider.saveData(listTypeRegistersModel);
+    return listTypeRegistersModel.listRegistersEntities;
   }
 
   Future<List<RegisterEntity>> getAllRegisters() async {
@@ -44,6 +44,24 @@ class DataManager {
   ) async {
     final listTypeRegistersModel = await _getTypeRegisters(typeRegister);
     return listTypeRegistersModel.listRegistersEntities;
+  }
+
+  Future<void> removeAllRegisters() async {
+    _mapTypeRegisters.clear();
+    for (final typeRegister in TypeRegister.values) {
+      await registerProvider.saveData(
+        ListTypeRegistersModel(typeRegister: typeRegister),
+      );
+    }
+  }
+
+  Future<void> removeRegistersByType({
+    required TypeRegister typeRegister,
+  }) async {
+    _mapTypeRegisters.remove(typeRegister);
+    await registerProvider.saveData(
+      ListTypeRegistersModel(typeRegister: typeRegister),
+    );
   }
 
   Future<ListTypeRegistersModel> _getTypeRegisters(

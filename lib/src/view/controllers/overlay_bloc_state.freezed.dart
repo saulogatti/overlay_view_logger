@@ -55,15 +55,14 @@ extension OverlayBlocStatePatterns on OverlayBlocState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( OverlayBlocStateError value)?  error,TResult Function( OverlayBlocStateInitial value)?  initial,TResult Function( OverlayBlocStateLoading value)?  loading,TResult Function( OverlayBlocStateSuccess value)?  success,TResult Function( OverlayBlocStateSuccessEmpty value)?  successEmpty,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( OverlayBlocStateError value)?  error,TResult Function( OverlayBlocStateInitial value)?  initial,TResult Function( OverlayBlocStateLoading value)?  loading,TResult Function( OverlayBlocStateSuccess value)?  success,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case OverlayBlocStateError() when error != null:
 return error(_that);case OverlayBlocStateInitial() when initial != null:
 return initial(_that);case OverlayBlocStateLoading() when loading != null:
 return loading(_that);case OverlayBlocStateSuccess() when success != null:
-return success(_that);case OverlayBlocStateSuccessEmpty() when successEmpty != null:
-return successEmpty(_that);case _:
+return success(_that);case _:
   return orElse();
 
 }
@@ -81,15 +80,14 @@ return successEmpty(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( OverlayBlocStateError value)  error,required TResult Function( OverlayBlocStateInitial value)  initial,required TResult Function( OverlayBlocStateLoading value)  loading,required TResult Function( OverlayBlocStateSuccess value)  success,required TResult Function( OverlayBlocStateSuccessEmpty value)  successEmpty,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( OverlayBlocStateError value)  error,required TResult Function( OverlayBlocStateInitial value)  initial,required TResult Function( OverlayBlocStateLoading value)  loading,required TResult Function( OverlayBlocStateSuccess value)  success,}){
 final _that = this;
 switch (_that) {
 case OverlayBlocStateError():
 return error(_that);case OverlayBlocStateInitial():
 return initial(_that);case OverlayBlocStateLoading():
 return loading(_that);case OverlayBlocStateSuccess():
-return success(_that);case OverlayBlocStateSuccessEmpty():
-return successEmpty(_that);}
+return success(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -103,15 +101,14 @@ return successEmpty(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( OverlayBlocStateError value)?  error,TResult? Function( OverlayBlocStateInitial value)?  initial,TResult? Function( OverlayBlocStateLoading value)?  loading,TResult? Function( OverlayBlocStateSuccess value)?  success,TResult? Function( OverlayBlocStateSuccessEmpty value)?  successEmpty,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( OverlayBlocStateError value)?  error,TResult? Function( OverlayBlocStateInitial value)?  initial,TResult? Function( OverlayBlocStateLoading value)?  loading,TResult? Function( OverlayBlocStateSuccess value)?  success,}){
 final _that = this;
 switch (_that) {
 case OverlayBlocStateError() when error != null:
 return error(_that);case OverlayBlocStateInitial() when initial != null:
 return initial(_that);case OverlayBlocStateLoading() when loading != null:
 return loading(_that);case OverlayBlocStateSuccess() when success != null:
-return success(_that);case OverlayBlocStateSuccessEmpty() when successEmpty != null:
-return successEmpty(_that);case _:
+return success(_that);case _:
   return null;
 
 }
@@ -128,14 +125,13 @@ return successEmpty(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ErrorObj error)?  error,TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<RegisterEntity> registers)?  success,TResult Function()?  successEmpty,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ErrorObj error)?  error,TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<RegisterEntity> registers)?  success,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case OverlayBlocStateError() when error != null:
 return error(_that.error);case OverlayBlocStateInitial() when initial != null:
 return initial();case OverlayBlocStateLoading() when loading != null:
 return loading();case OverlayBlocStateSuccess() when success != null:
-return success(_that.registers);case OverlayBlocStateSuccessEmpty() when successEmpty != null:
-return successEmpty();case _:
+return success(_that.registers);case _:
   return orElse();
 
 }
@@ -153,14 +149,13 @@ return successEmpty();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ErrorObj error)  error,required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<RegisterEntity> registers)  success,required TResult Function()  successEmpty,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ErrorObj error)  error,required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<RegisterEntity> registers)  success,}) {final _that = this;
 switch (_that) {
 case OverlayBlocStateError():
 return error(_that.error);case OverlayBlocStateInitial():
 return initial();case OverlayBlocStateLoading():
 return loading();case OverlayBlocStateSuccess():
-return success(_that.registers);case OverlayBlocStateSuccessEmpty():
-return successEmpty();}
+return success(_that.registers);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -174,14 +169,13 @@ return successEmpty();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ErrorObj error)?  error,TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<RegisterEntity> registers)?  success,TResult? Function()?  successEmpty,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ErrorObj error)?  error,TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<RegisterEntity> registers)?  success,}) {final _that = this;
 switch (_that) {
 case OverlayBlocStateError() when error != null:
 return error(_that.error);case OverlayBlocStateInitial() when initial != null:
 return initial();case OverlayBlocStateLoading() when loading != null:
 return loading();case OverlayBlocStateSuccess() when success != null:
-return success(_that.registers);case OverlayBlocStateSuccessEmpty() when successEmpty != null:
-return successEmpty();case _:
+return success(_that.registers);case _:
   return null;
 
 }
@@ -390,37 +384,5 @@ as List<RegisterEntity>,
 
 
 }
-
-/// @nodoc
-
-
-class OverlayBlocStateSuccessEmpty implements OverlayBlocState {
-  const OverlayBlocStateSuccessEmpty();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OverlayBlocStateSuccessEmpty);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'OverlayBlocState.successEmpty()';
-}
-
-
-}
-
-
-
 
 // dart format on

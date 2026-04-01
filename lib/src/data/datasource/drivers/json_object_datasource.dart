@@ -6,11 +6,11 @@ import 'package:overlay_view_logger/src/data/datasource/helpers/disk_storage.dar
 import 'package:overlay_view_logger/src/data/datasource/register_datasource_provider.dart';
 import 'package:overlay_view_logger/src/data/models/list_type_registers_model.dart';
 
-class JsonObjectRegisterDataSource implements RegisterDataSourceProvider {
+final class JsonObjectDataSource implements RegisterDataSourceProvider {
   final String _directoryPath = 'registers';
   final String _fileName = 'registers_';
 
-  JsonObjectRegisterDataSource();
+  const JsonObjectDataSource();
 
   @override
   Future<ListTypeRegistersModel> getData(TypeRegister typeRegister) async {

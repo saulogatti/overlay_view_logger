@@ -35,11 +35,31 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
                     children: [
                       TextButton(
                         onPressed: () {
+                          context.read<OverlayBloc>().getAllRegisters();
+                        },
+                        child: const Text('Pegar todos os registros'),
+                      ),
+                      TextButton(
+                        onPressed: () {
                           context.read<OverlayBloc>().getRegistersByType(
                             TypeRegister.debug,
                           );
                         },
-                        child: const Text('Pagar registros'),
+                        child: const Text('Pegar registros de debug'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.read<OverlayBloc>().removeRegistersByType(
+                            TypeRegister.debug,
+                          );
+                        },
+                        child: const Text('Remover registros de debug'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.read<OverlayBloc>().removeAllRegisters();
+                        },
+                        child: const Text('Remover todos os registros'),
                       ),
                       TextButton(
                         onPressed: () {
@@ -47,13 +67,20 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
                             TypeRegister.info,
                           );
                         },
-                        child: const Text('Pagar registros'),
+                        child: const Text('Pegar registros de info'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.read<OverlayBloc>().removeRegistersByType(
+                            TypeRegister.info,
+                          );
+                        },
+                        child: const Text('Remover registros de info'),
                       ),
                       _buildSuccessEmpty(),
                       Expanded(child: ListWidget(registers: registers)),
                     ],
                   ),
-          OverlayBlocStateSuccessEmpty() => _buildSuccessEmpty(),
         };
       },
     );
@@ -105,7 +132,6 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
               typeRegister: TypeRegister.error,
             ),
           );
-          context.read<OverlayBloc>().getAllRegisters();
         },
         child: const Text('Adicionar registro'),
       ),

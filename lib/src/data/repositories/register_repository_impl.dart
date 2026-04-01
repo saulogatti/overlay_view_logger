@@ -1,5 +1,5 @@
 import 'package:overlay_view_logger/src/core/type_register.dart';
-import 'package:overlay_view_logger/src/data/datasource/drivers/json_object_manager.dart';
+import 'package:overlay_view_logger/src/data/datasource/drivers/memory_object_data_source.dart';
 import 'package:overlay_view_logger/src/data/manager/data_manager.dart';
 
 import '../../core/errors/error_obj.dart';
@@ -9,13 +9,15 @@ import '../../domain/repositories/register_repository.dart';
 
 class RegisterRepositoryImpl implements RegisterRepository {
   final DataManager dataManager = DataManager(
-    registerProvider: JsonObjectRegisterDataSource(),
+    registerProvider: MemoryObjectDataSource(),
   );
   @override
-  Future<Result<void, ErrorObj>> addRegister(RegisterEntity register) async {
+  Future<Result<List<RegisterEntity>, ErrorObj>> addRegister(
+    RegisterEntity register,
+  ) async {
     try {
-      await dataManager.addRegister(register);
-      return Result.success(null);
+      final registers = await dataManager.addRegister(register);
+      return Result.success(registers);
     } on Exception catch (error, stackTrace) {
       return Result.failure(
         ErrorObj(message: error.toString(), description: stackTrace.toString()),
@@ -42,6 +44,32 @@ class RegisterRepositoryImpl implements RegisterRepository {
     try {
       final registers = await dataManager.getRegistersByType(type);
       return Result.success(registers);
+    } on Exception catch (error, stackTrace) {
+      return Result.failure(
+        ErrorObj(message: error.toString(), description: stackTrace.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Result<void, ErrorObj>> removeAllRegisters() async {
+    try {
+      await dataManager.removeAllRegisters();
+      return Result.success(null);
+    } on Exception catch (error, stackTrace) {
+      return Result.failure(
+        ErrorObj(message: error.toString(), description: stackTrace.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Result<void, ErrorObj>> removeRegistersByType({
+    required TypeRegister type,
+  }) async {
+    try {
+      await dataManager.removeRegistersByType(typeRegister: type);
+      return Result.success(null);
     } on Exception catch (error, stackTrace) {
       return Result.failure(
         ErrorObj(message: error.toString(), description: stackTrace.toString()),

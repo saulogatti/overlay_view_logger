@@ -26,4 +26,9 @@ class RegisterEntity {
     DateTime? updatedAt,
   }) : createdAt = createdAt ?? DateTime.now(),
        updatedAt = updatedAt ?? DateTime.now();
+
+  @override
+  String toString() {
+    return 'RegisterEntity(title: $title, description: $description, tag: $tag, typeObject: $typeObject, typeRegister: $typeRegister, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
 }

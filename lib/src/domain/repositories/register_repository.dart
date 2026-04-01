@@ -5,9 +5,17 @@ import '../../core/result/result_obj.dart';
 import '../entities/register_entitie.dart';
 
 abstract interface class RegisterRepository {
-  Future<Result<void, ErrorObj>> addRegister(RegisterEntity register);
+  Future<Result<List<RegisterEntity>, ErrorObj>> addRegister(
+    RegisterEntity register,
+  );
   Future<Result<List<RegisterEntity>, ErrorObj>> getAllRegisters();
   Future<Result<List<RegisterEntity>, ErrorObj>> getRegistersByType({
+    required TypeRegister type,
+  });
+  // Remove todo
+  Future<Result<void, ErrorObj>> removeAllRegisters();
+  // Remove todo por tipo de registro
+  Future<Result<void, ErrorObj>> removeRegistersByType({
     required TypeRegister type,
   });
 }

@@ -13,5 +13,5 @@ sealed class OverlayBlocState with _$OverlayBlocState {
   const factory OverlayBlocState.success({
     required List<RegisterEntity> registers,
   }) = OverlayBlocStateSuccess;
-  const factory OverlayBlocState.successEmpty() = OverlayBlocStateSuccessEmpty;
+  
 }

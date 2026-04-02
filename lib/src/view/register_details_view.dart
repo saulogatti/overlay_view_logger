@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overlay_view_logger/src/view/extensions/registry_extension.dart';
 
 import '../domain/entities/register_entitie.dart';
 
@@ -14,17 +15,18 @@ class RegisterDetailsView extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          _DetailItem(
+            label: 'Data de criação',
+            value: register.formattedCreatedAt,
+          ),
+          _DetailItem(label: 'Tag', value: register.tag),
           _DetailItem(label: 'Título', value: register.title),
           _DetailItem(label: 'Descrição', value: register.description),
-          _DetailItem(label: 'Tag', value: register.tag),
+
           _DetailItem(label: 'Tipo do objeto', value: register.typeObject),
           _DetailItem(
             label: 'Tipo do registro',
             value: register.typeRegister.name,
-          ),
-          _DetailItem(
-            label: 'Data de criação',
-            value: register.createdAt.toIso8601String(),
           ),
         ],
       ),

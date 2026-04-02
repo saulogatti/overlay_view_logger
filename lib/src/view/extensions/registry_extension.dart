@@ -16,5 +16,6 @@ extension RegistryExtension on RegisterEntity {
     }
   }
 
-  String get formattedCreatedAt => createdAt.toIso8601String();
+  String get formattedCreatedAt =>
+      "${createdAt.day.toString().padLeft(2, '0')}/${createdAt.month.toString().padLeft(2, '0')}/${createdAt.year} ${createdAt.hour.toString().padLeft(2, '0')}:${createdAt.minute.toString().padLeft(2, '0')}:${createdAt.second.toString().padLeft(2, '0')}.${createdAt.millisecond.toString().padLeft(3, '0')}";
 }

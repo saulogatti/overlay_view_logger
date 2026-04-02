@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:overlay_view_logger/src/core/type_register.dart';
 import 'package:overlay_view_logger/src/data/datasource/drivers/memory_object_data_source.dart';
 import 'package:overlay_view_logger/src/data/manager/data_manager.dart';
@@ -8,9 +10,15 @@ import '../../domain/entities/register_entitie.dart';
 import '../../domain/repositories/register_repository.dart';
 
 class RegisterRepositoryImpl implements RegisterRepository {
+  static RegisterRepositoryImpl? _instance;
   final DataManager dataManager = DataManager(
     registerProvider: MemoryObjectDataSource(),
   );
+  factory RegisterRepositoryImpl() {
+    _instance ??= RegisterRepositoryImpl._internal();
+    return _instance!;
+  }
+  RegisterRepositoryImpl._internal();
   @override
   Future<Result<List<RegisterEntity>, ErrorObj>> addRegister(
     RegisterEntity register,

@@ -19,9 +19,10 @@ class OverlayBloc extends Cubit<OverlayBlocState> {
   Future<void> addRegister(RegisterEntity register) async {
     emit(const OverlayBlocState.loading());
     final result = await _registerRepository.addRegister(register);
+
     switch (result) {
-      case Success(value: final registers):
-        emit(OverlayBlocState.success(registers: registers));
+      case Success(value: final _):
+        await _getAll();
       case Failure(:final error):
         emit(OverlayBlocState.error(error: error));
     }
@@ -41,8 +42,10 @@ class OverlayBloc extends Cubit<OverlayBlocState> {
     emit(const OverlayBlocState.loading());
     final result = await _registerRepository.getRegistersByType(type: type);
     result.fold(
-      onSuccess: (registers) =>
-          emit(OverlayBlocState.success(registers: registers)),
+      onSuccess: (registers) {
+        registers.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+        emit(OverlayBlocState.success(registers: registers));
+      },
       onFailure: (error) => emit(OverlayBlocState.error(error: error)),
     );
   }
@@ -52,7 +55,7 @@ class OverlayBloc extends Cubit<OverlayBlocState> {
   Future<void> removeAllRegisters() async {
     emit(const OverlayBlocState.loading());
     final result = await _registerRepository.removeAllRegisters();
-    print(result);
+
     result.fold(
       onSuccess: (success) => _getAll(),
       onFailure: (error) => emit(OverlayBlocState.error(error: error)),
@@ -65,7 +68,7 @@ class OverlayBloc extends Cubit<OverlayBlocState> {
   Future<void> removeRegistersByType(TypeRegister type) async {
     emit(const OverlayBlocState.loading());
     final result = await _registerRepository.removeRegistersByType(type: type);
-    print(result);
+
     result.fold(
       onSuccess: (success) => _getAll(),
       onFailure: (error) => emit(OverlayBlocState.error(error: error)),
@@ -75,8 +78,10 @@ class OverlayBloc extends Cubit<OverlayBlocState> {
   Future<void> _getAll() async {
     final result = await _registerRepository.getAllRegisters();
     result.fold(
-      onSuccess: (registers) =>
-          emit(OverlayBlocState.success(registers: registers)),
+      onSuccess: (registers) {
+        registers.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+        emit(OverlayBlocState.success(registers: registers));
+      },
       onFailure: (error) => emit(OverlayBlocState.error(error: error)),
     );
   }

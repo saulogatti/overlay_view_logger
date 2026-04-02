@@ -28,7 +28,7 @@ class CardWidget extends StatelessWidget {
               //  typeRegister [TypeObject]
               //    Title - Tag
               Text(
-                register.formattedCreatedAt,
+                register.formattedCreatedAt, textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 12, color: register.color),
               ),
               const SizedBox(height: 4),
@@ -37,12 +37,15 @@ class CardWidget extends StatelessWidget {
                 spacing: 12,
                 children: [
                   Text(
-                    register.typeRegister.name,
+                    register.typeRegister.name.toUpperCase(),
                     style: TextStyle(color: register.color),
                   ),
                   Text(
-                    register.typeObject,
-                    style: TextStyle(color: register.color),
+                    "[${register.typeObject.toUpperCase()}]",
+                    style: TextStyle(
+                      color: register.color,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -53,14 +56,26 @@ class CardWidget extends StatelessWidget {
                 children: [
                   Text(
                     register.title,
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
                       color: register.color,
                     ),
                   ),
-                  Text(register.tag, style: TextStyle(color: register.color)),
+                  Text(
+                    register.tag,
+                    style: TextStyle(color: register.color),
+                    textAlign: TextAlign.left,
+                  ),
                 ],
+              ),
+              Text(
+                register.description,
+                style: TextStyle(color: register.color),
+                maxLines: 5,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.left,
               ),
             ],
           ),

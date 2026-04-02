@@ -4,16 +4,25 @@ import 'package:overlay_view_logger/src/data/models/list_type_registers_model.da
 import 'package:overlay_view_logger/src/data/models/register_model.dart';
 import 'package:overlay_view_logger/src/domain/entities/register_entitie.dart';
 
-/// Data Manager para gerenciar os registros
-/// Tem apenas lista de tipos de registro (debug, info, warning, error)
-/// Salva e pega a lista de registros
-/// adiciona na lista de registros e devolve a lista de registros tipo TypeRegister
+/// Gerencia a persistência e o cache de registros por [TypeRegister].
+///
+/// Esta classe delega a leitura e escrita para um [RegisterDataSourceProvider]
+/// e mantém um mapa em memória para reduzir leituras repetidas.
 class DataManager {
   final RegisterDataSourceProvider registerProvider;
 
   final Map<TypeRegister, ListTypeRegistersModel> _mapTypeRegisters = {};
 
+  /// Cria um [DataManager] usando o [registerProvider] como fonte de dados.
   DataManager({required this.registerProvider});
+
+  /// Adiciona um [RegisterEntity] ao tipo correspondente e devolve a lista atualizada.
+  ///
+  /// Parâmetros:
+  /// - `register`: entidade a ser adicionada.
+  ///
+  /// Retorna:
+  /// Uma lista com os registros do tipo do [register] após a inclusão.
   Future<List<RegisterEntity>> addRegister(RegisterEntity register) async {
     final listTypeRegistersModel = await _getTypeRegisters(
       register.typeRegister,
@@ -23,6 +32,10 @@ class DataManager {
     return listTypeRegistersModel.listRegistersEntities;
   }
 
+  /// Retorna todos os registros persistidos, agregados por tipo.
+  ///
+  /// Retorna:
+  /// Uma lista contendo registros de todos os [TypeRegister] disponíveis.
   Future<List<RegisterEntity>> getAllRegisters() async {
     if (_mapTypeRegisters.keys.length != TypeRegister.values.length) {
       for (final typeRegister in TypeRegister.values) {
@@ -39,6 +52,13 @@ class DataManager {
     return listRegistersEntities;
   }
 
+  /// Retorna os registros persistidos para o [typeRegister] informado.
+  ///
+  /// Parâmetros:
+  /// - `typeRegister`: tipo de registro a ser consultado.
+  ///
+  /// Retorna:
+  /// A lista de registros daquele tipo.
   Future<List<RegisterEntity>> getRegistersByType(
     TypeRegister typeRegister,
   ) async {
@@ -46,6 +66,7 @@ class DataManager {
     return listTypeRegistersModel.listRegistersEntities;
   }
 
+  /// Remove todos os registros persistidos, independente do tipo.
   Future<void> removeAllRegisters() async {
     _mapTypeRegisters.clear();
     for (final typeRegister in TypeRegister.values) {
@@ -55,6 +76,10 @@ class DataManager {
     }
   }
 
+  /// Remove todos os registros persistidos para o tipo informado.
+  ///
+  /// Parâmetros:
+  /// - `typeRegister`: tipo de registros a serem removidos.
   Future<void> removeRegistersByType({
     required TypeRegister typeRegister,
   }) async {
@@ -77,6 +102,10 @@ class DataManager {
 }
 
 extension on ListTypeRegistersModel {
+  /// Converte a lista interna de [RegisterModel] para uma lista de [RegisterEntity].
+  ///
+  /// Retorna:
+  /// Lista de entidades convertidas.
   List<RegisterEntity> get listRegistersEntities =>
       listRegisters.map((e) => RegisterModel.toEntity(e)).toList();
 }

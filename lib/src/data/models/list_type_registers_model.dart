@@ -6,41 +6,59 @@ import 'package:overlay_view_logger/src/data/models/register_model.dart';
 
 part 'list_type_registers_model.g.dart';
 
-/// Modelo de lista de registros
-/// Tem apenas lista de registros
-/// Tem o tipo de registro e a lista de registros
-/// adiciona na lista de registros e devolve a lista de registros tipo TypeRegister
+/// Modelo de lista de registros para um [TypeRegister].
+///
+/// Contém a lista de [RegisterModel] associada a um tipo e oferece operações
+/// para adicionar/remover registros e serializar o estado.
 @JsonSerializable(explicitToJson: true)
 class ListTypeRegistersModel {
-  /// Lista de registros
+  /// Lista de registros.
   final List<RegisterModel> _listRegisters;
 
-  /// Tipo de registro
+  /// Tipo de registro.
   final TypeRegister _typeRegister;
 
-  /// Construtor
-  /// Se o tipo de registro não for informado, define como debug
-  /// Se a lista de registros não for informada, define como vazia
+  /// Cria uma instância para o [typeRegister] informado.
+  ///
+  /// Parâmetros:
+  /// - `typeRegister`: tipo associado à lista. Quando omitido, usa
+  ///   [TypeRegister.debug].
+  /// - `listRegisters`: lista inicial de registros. Quando omitida, inicia
+  ///   vazia.
   ListTypeRegistersModel({
     TypeRegister? typeRegister,
     List<RegisterModel>? listRegisters,
   }) : _listRegisters = listRegisters ?? [],
        _typeRegister = typeRegister ?? TypeRegister.debug;
 
-  /// Factory para criar um modelo de lista de registros a partir de um JSON
+  /// Cria uma instância a partir do JSON serializado.
+  ///
+  /// Parâmetros:
+  /// - `json`: mapa com os campos serializados.
+  ///
+  /// Retorna:
+  /// Uma instância de [ListTypeRegistersModel] equivalente.
   factory ListTypeRegistersModel.fromJson(Map<String, dynamic> json) =>
       _$ListTypeRegistersModelFromJson(json);
 
-  /// Lista de registros
-  /// Retorna uma cópia da lista de registros para evitar alterações diretas na lista original
+  /// Retorna uma visão imutável da lista de registros.
+  ///
+  /// Retorna:
+  /// Uma [UnmodifiableListView] para evitar mutações externas.
   UnmodifiableListView<RegisterModel> get listRegisters =>
       UnmodifiableListView(_listRegisters);
 
-  /// Tipo de registro
+  /// Retorna o tipo associado à lista.
   TypeRegister get typeRegister => _typeRegister;
 
-  /// Adiciona um registro na lista de registros
-  /// Se o tipo do registro não for o tipo da lista, lança uma exceção
+  /// Adiciona um [register] à lista se o tipo for compatível.
+  ///
+  /// Parâmetros:
+  /// - `register`: registro a ser adicionado.
+  ///
+  /// Observação:
+  /// Se o tipo do [register] não for compatível com a lista, pode lançar uma
+  /// exceção.
   void addRegister(RegisterModel register) {
     if (register.typeRegister == _typeRegister) {
       _listRegisters.add(register);
@@ -49,13 +67,19 @@ class ListTypeRegistersModel {
     }
   }
 
-  /// Limpa a lista de registros
+  /// Limpa a lista de registros.
   void clear() {
     _listRegisters.clear();
   }
 
-  /// Remove um registro da lista de registros
-  /// Se o tipo do registro não for o tipo da lista, lança uma exceção
+  /// Remove um [register] da lista se o tipo for compatível.
+  ///
+  /// Parâmetros:
+  /// - `register`: registro a ser removido.
+  ///
+  /// Observação:
+  /// Se o tipo do [register] não for compatível com a lista, pode lançar uma
+  /// exceção.
   void removeRegister(RegisterModel register) {
     if (register.typeRegister == _typeRegister) {
       _listRegisters.remove(register);
@@ -64,6 +88,9 @@ class ListTypeRegistersModel {
     }
   }
 
-  /// Converte a lista de registros para um JSON
+  /// Converte esta instância em um mapa serializável (JSON).
+  ///
+  /// Retorna:
+  /// Um [Map] com os campos serializados desta instância.
   Map<String, dynamic> toJson() => _$ListTypeRegistersModelToJson(this);
 }

@@ -3,27 +3,30 @@ import 'dart:io';
 import 'package:overlay_view_logger/src/core/errors/disk_storage_error.dart';
 import 'package:path/path.dart' as path;
 
-/// Helper para persistencia simples de arquivos em disco.
-/// Erros que acontecem neste helper são do tipo [DiskStorageError].
-/// Informções de utilização:
-/// - Os metodos são estaticos para facilitar a utilização.
-/// - Nenhum metodo trata qualquer tipo de erro, apenas retorna null ou lança uma exceção.
-/// - Os metodos são assincronos para facilitar a utilização.
-/// - As checagens de existencia de arquivos e diretorios são feitas antes de executar as operações.
-/// - Quando tem algum problema que tenha problema, como falta de extensão, falta de permissão, etc, o metodo retorna null ou lança uma exceção.
-/// - Qualquer permissão necessaria tem que ser verificada antes de executar as operações.
+/// Utilitário de persistência simples de arquivos no disco.
+///
+/// Erros gerados por este utilitário são representados por [DiskStorageError].
+///
+/// Informações de utilização:
+/// - Os métodos são `static` para facilitar chamadas diretas.
+/// - Os métodos são assíncronos (retornam `Future`).
+/// - As checagens de existência de arquivos/diretórios são feitas antes das
+///   operações.
+/// - Quando há problemas de caminho/extensão/permissões, o método pode
+///   lançar [DiskStorageError] (ou retornar `null`, quando aplicável).
+/// - Verifique permissões necessárias antes de executar as operações.
 final class DiskStorage {
   DiskStorage._();
 
-  /// Deleta um arquivo caso exista.
+  /// Remove um arquivo do disco caso ele exista.
   ///
-  /// Lança uma exceção se o caminho do diretório ou o nome do arquivo estiver vazio ou contiver separador de caminho.
-  /// Lança uma exceção se o nome do arquivo não tiver extensão.
+  /// Parâmetros:
+  /// - `directoryPath`: caminho do diretório onde o arquivo está localizado.
+  /// - `fileName`: nome do arquivo, incluindo a extensão.
   ///
-  /// Exemplo de uso:
-  /// ```dart
-  /// await deleteFile('registers', 'registers.json');
-  /// ```
+  /// Observação:
+  /// Se os parâmetros forem inválidos, este método pode lançar
+  /// [DiskStorageError].
   static Future<void> deleteFile({
     required String directoryPath,
     required String fileName,
@@ -34,16 +37,22 @@ final class DiskStorage {
     }
   }
 
-  /// Garante que um diretorio exista.
+  /// Garante que um diretório exista e retorna a referência do diretório.
   ///
-  /// Retorna o diretório criado.
+  /// Parâmetros:
+  /// - `directoryPath`: caminho do diretório a ser garantido.
   ///
-  /// Lança uma exceção se o caminho do diretório estiver vazio ou contiver separador de caminho.
+  /// Retorna:
+  /// Um [Directory] que representa o diretório existente.
+  ///
+  /// Observação:
+  /// Este método valida o formato do caminho e pode lançar
+  /// [DiskStorageError] em caso de parâmetros inválidos.
   ///
   /// Exemplo de uso:
   /// ```dart
-  /// final directory = await ensureDirectoryExists('registers');
-  /// print(directory.path); // registers
+  /// final directory = await DiskStorage.ensureDirectoryExists('registers\\debug');
+  /// print(directory.path); // registers\\debug
   /// ```
   ///
   static Future<Directory> ensureDirectoryExists(String directoryPath) async {
@@ -69,17 +78,18 @@ final class DiskStorage {
     return await directory.create(recursive: true);
   }
 
-  /// Verifica se um arquivo existe.
-  /// retorna true se o arquivo existe, false caso contrario.
-  /// Lança uma exceção se o caminho do diretório ou o nome do arquivo estiver vazio ou contiver separador de caminho.
-  /// Lança uma exceção se o nome do arquivo não tiver extensão.
+  /// Verifica se um arquivo existe no disco.
   ///
-  /// Exemplo de uso:
-  /// ```dart
-  /// final exists = await fileExists('registers', 'registers.json');
-  /// print(exists); // true
-  /// ```
+  /// Parâmetros:
+  /// - `directoryPath`: caminho do diretório onde o arquivo está localizado.
+  /// - `fileName`: nome do arquivo, incluindo a extensão.
   ///
+  /// Retorna:
+  /// `true` se o arquivo existir, `false` caso contrário.
+  ///
+  /// Observação:
+  /// Se os parâmetros forem inválidos, este método pode lançar
+  /// [DiskStorageError].
   static Future<bool> fileExists({
     required String directoryPath,
     required String fileName,
@@ -87,18 +97,18 @@ final class DiskStorage {
     return await File(_getFilePath(directoryPath, fileName)).exists();
   }
 
-  /// Recupera o conteudo de um arquivo de texto.
+  /// Lê o conteúdo de um arquivo de texto.
   ///
-  /// Retorna `null` quando o arquivo nao existe.
-  /// Lança uma exceção se o caminho do diretório ou o nome do arquivo estiver vazio ou contiver separador de caminho.
-  /// Lança uma exceção se o nome do arquivo não tiver extensão.
+  /// Parâmetros:
+  /// - `directoryPath`: caminho do diretório onde o arquivo está localizado.
+  /// - `fileName`: nome do arquivo, incluindo a extensão.
   ///
-  /// Exemplo de uso:
-  /// ```dart
-  /// final content = await readString('registers', 'registers.json');
-  /// print(content); // content
-  /// ```
+  /// Retorna:
+  /// O conteúdo como [String] ou `null` quando o arquivo não existir.
   ///
+  /// Observação:
+  /// Se os parâmetros forem inválidos, este método pode lançar
+  /// [DiskStorageError].
   static Future<String?> readString({
     required String directoryPath,
     required String fileName,
@@ -110,18 +120,32 @@ final class DiskStorage {
     return await file.readAsString();
   }
 
-  /// Salva [content] em um arquivo de texto.
+  /// Salva o [content] em um arquivo de texto.
   ///
-  /// Se [append] for true, concatena ao arquivo existente.
-  /// Lança uma exceção se o caminho do diretório ou o nome do arquivo estiver vazio ou contiver separador de caminho.
-  /// Lança uma exceção se o nome do arquivo não tiver extensão.
+  /// Parâmetros:
+  /// - `directoryPath`: caminho do diretório onde o arquivo será salvo.
+  /// - `fileName`: nome do arquivo, incluindo a extensão.
+  /// - `content`: conteúdo textual a ser persistido.
+  /// - `append`: se `true`, anexa ao arquivo existente; caso contrário,
+  ///   substitui.
+  ///
+  /// Observação:
+  /// Se os parâmetros forem inválidos, este método pode lançar
+  /// [DiskStorageError].
   ///
   /// Exemplo de uso:
   /// ```dart
-  /// final file = await saveString('registers', 'registers.json', 'content');
-  /// print(file.path); // registers/registers.json
+  /// await DiskStorage.saveString(
+  ///   directoryPath: 'registers\\debug',
+  ///   fileName: 'registers.json',
+  ///   content: '{"example": true}',
+  /// );
+  /// final content = await DiskStorage.readString(
+  ///   directoryPath: 'registers\\debug',
+  ///   fileName: 'registers.json',
+  /// );
+  /// print(content); // {"example": true}
   /// ```
-  ///
   static Future<void> saveString({
     required String directoryPath,
     required String fileName,
@@ -137,24 +161,19 @@ final class DiskStorage {
     );
   }
 
-  /// Gera o caminho completo do arquivo.
+  /// Gera o caminho completo do arquivo a partir do diretório e do nome.
   ///
-  /// Retorna o caminho completo do arquivo.
+  /// Parâmetros:
+  /// - `directoryPath`: caminho do diretório.
+  /// - `fileName`: nome do arquivo, incluindo a extensão.
   ///
-  /// Lança uma exceção se o nome do arquivo não tiver extensão.
+  /// Retorna:
+  /// Caminho completo do arquivo.
   ///
-  /// Exemplo de uso:
-  /// ```dart
-  /// final filePath = _getFilePath('registers/debug', 'registers.json');
-  /// print(filePath); // registers/debug/registers.json
-  /// ```
-  ///
-  /// Exemplo de uso:
-  /// ```dart
-  /// final filePath = _getFilePath('registers/debug', 'registers.json');
-  /// print(filePath); // registers/debug/registers.json
-  /// ```
-  ///
+  /// Observação:
+  /// Este método valida o `fileName` (por exemplo, presença de extensão) e o
+  /// `directoryPath`, e pode lançar [DiskStorageError] em caso de parâmetros
+  /// inválidos.
   static String _getFilePath(String directoryPath, String fileName) {
     if (fileName.isEmpty) {
       throw DiskStorageError(

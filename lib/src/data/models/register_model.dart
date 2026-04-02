@@ -5,6 +5,10 @@ import '../../domain/entities/register_entitie.dart';
 
 part 'register_model.g.dart';
 
+/// Modelo serializável de [RegisterEntity] usado para persistência em JSON.
+///
+/// A conversão entre `RegisterEntity` e `RegisterModel` é feita via
+/// [RegisterModel.fromEntity] e [RegisterModel.toEntity].
 @JsonSerializable()
 class RegisterModel extends RegisterEntity {
   RegisterModel({
@@ -16,6 +20,13 @@ class RegisterModel extends RegisterEntity {
     super.createdAt,
   });
 
+  /// Cria um [RegisterModel] a partir de uma [RegisterEntity].
+  ///
+  /// Parâmetros:
+  /// - `register`: entidade de domínio a ser convertida.
+  ///
+  /// Retorna:
+  /// Instância de [RegisterModel] equivalente.
   factory RegisterModel.fromEntity(RegisterEntity register) => RegisterModel(
     title: register.title,
     description: register.description,
@@ -25,9 +36,26 @@ class RegisterModel extends RegisterEntity {
     createdAt: register.createdAt,
   );
 
+  /// Converte o JSON recebido em um [RegisterModel].
+  ///
+  /// Parâmetros:
+  /// - `json`: mapa com os campos serializados.
+  ///
+  /// Retorna:
+  /// Um [RegisterModel] instanciado a partir do JSON.
   factory RegisterModel.fromJson(Map<String, dynamic> json) =>
       _$RegisterModelFromJson(json);
+
+  /// Converte este [RegisterModel] em um mapa JSON.
   Map<String, dynamic> toJson() => _$RegisterModelToJson(this);
+
+  /// Converte um [RegisterModel] em uma [RegisterEntity].
+  ///
+  /// Parâmetros:
+  /// - `registerModel`: modelo serializável a ser convertido.
+  ///
+  /// Retorna:
+  /// Entidade de domínio equivalente.
   static RegisterEntity toEntity(RegisterModel registerModel) => RegisterEntity(
     title: registerModel.title,
     description: registerModel.description,

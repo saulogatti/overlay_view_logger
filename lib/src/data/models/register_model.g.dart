@@ -13,9 +13,6 @@ RegisterModel _$RegisterModelFromJson(Map<String, dynamic> json) =>
       tag: json['tag'] as String,
       typeObject: json['typeObject'] as String,
       typeRegister: $enumDecode(_$TypeRegisterEnumMap, json['typeRegister']),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -29,7 +26,6 @@ Map<String, dynamic> _$RegisterModelToJson(RegisterModel instance) =>
       'typeObject': instance.typeObject,
       'typeRegister': _$TypeRegisterEnumMap[instance.typeRegister]!,
       'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
     };
 
 const _$TypeRegisterEnumMap = {

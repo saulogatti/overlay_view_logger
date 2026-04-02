@@ -13,7 +13,6 @@ class RegisterModel extends RegisterEntity {
     required super.tag,
     required super.typeObject,
     required super.typeRegister,
-    required super.updatedAt,
     super.createdAt,
   });
 
@@ -23,7 +22,6 @@ class RegisterModel extends RegisterEntity {
     tag: register.tag,
     typeObject: register.typeObject,
     typeRegister: register.typeRegister,
-    updatedAt: register.updatedAt,
     createdAt: register.createdAt,
   );
 
@@ -36,7 +34,6 @@ class RegisterModel extends RegisterEntity {
     tag: registerModel.tag,
     typeObject: registerModel.typeObject,
     typeRegister: registerModel.typeRegister,
-    updatedAt: registerModel.updatedAt,
     createdAt: registerModel.createdAt,
   );
 }

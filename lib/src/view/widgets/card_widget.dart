@@ -23,7 +23,7 @@ class CardWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(register.updatedAt.toIso8601String()),
+              Text(register.createdAt.toIso8601String()),
               Text(register.title),
               Text(register.tag),
               Text(register.typeObject),

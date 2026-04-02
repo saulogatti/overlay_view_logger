@@ -14,7 +14,6 @@ class RegisterEntity {
   final String typeObject;
   final TypeRegister typeRegister;
   final DateTime createdAt;
-  final DateTime updatedAt;
 
   RegisterEntity({
     required this.title,
@@ -23,12 +22,10 @@ class RegisterEntity {
     required this.typeObject,
     required this.typeRegister,
     DateTime? createdAt,
-    DateTime? updatedAt,
-  }) : createdAt = createdAt ?? DateTime.now(),
-       updatedAt = updatedAt ?? DateTime.now();
+  }) : createdAt = createdAt ?? DateTime.now();
 
   @override
   String toString() {
-    return 'RegisterEntity(title: $title, description: $description, tag: $tag, typeObject: $typeObject, typeRegister: $typeRegister, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'RegisterEntity(title: $title, description: $description, tag: $tag, typeObject: $typeObject, typeRegister: $typeRegister, createdAt: $createdAt)';
   }
 }

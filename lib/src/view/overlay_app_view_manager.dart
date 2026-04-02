@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'overlay_app_view.dart';
 
 class OverlayAppViewManager {
@@ -46,7 +47,7 @@ class OverlayAppViewManager {
               },
               child: Material(
                 child: Container(
-                  color: Colors.yellow,
+                  color: Colors.black.withAlpha(128),
                   width: width,
                   height: height,
                   child: const OverlayAppView(),

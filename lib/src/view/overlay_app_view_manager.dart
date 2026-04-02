@@ -23,7 +23,7 @@ class OverlayAppViewManager {
     double height,
   ) {
     if (overlayEntry != null) {
-      removeOverlayAppView(context);
+      removeOverlayAppView();
     }
 
     if (width == 0 || height == 0) {

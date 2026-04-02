@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             onPressed: () {
-              OverlayAppViewManager.removeOverlayAppView(context);
+              OverlayAppViewManager.removeOverlayAppView();
             },
             icon: const Icon(Icons.remove),
           ),

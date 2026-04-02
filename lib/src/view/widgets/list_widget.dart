@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../domain/entities/register_entitie.dart';
 import 'card_widget.dart';
 

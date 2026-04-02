@@ -19,7 +19,6 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
   Widget build(BuildContext context) {
     return BlocBuilder<OverlayBloc, OverlayBlocState>(
       builder: (context, state) {
-        print(state);
         return switch (state) {
           OverlayBlocStateInitial() => _buildSuccessEmpty(),
           OverlayBlocStateLoading() => const Center(
@@ -33,50 +32,6 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
                 ? _buildSuccessEmpty()
                 : Column(
                     children: [
-                      TextButton(
-                        onPressed: () {
-                          context.read<OverlayBloc>().getAllRegisters();
-                        },
-                        child: const Text('Pegar todos os registros'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          context.read<OverlayBloc>().getRegistersByType(
-                            TypeRegister.debug,
-                          );
-                        },
-                        child: const Text('Pegar registros de debug'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          context.read<OverlayBloc>().removeRegistersByType(
-                            TypeRegister.debug,
-                          );
-                        },
-                        child: const Text('Remover registros de debug'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          context.read<OverlayBloc>().removeAllRegisters();
-                        },
-                        child: const Text('Remover todos os registros'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          context.read<OverlayBloc>().getRegistersByType(
-                            TypeRegister.info,
-                          );
-                        },
-                        child: const Text('Pegar registros de info'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          context.read<OverlayBloc>().removeRegistersByType(
-                            TypeRegister.info,
-                          );
-                        },
-                        child: const Text('Remover registros de info'),
-                      ),
                       _buildSuccessEmpty(),
                       Expanded(child: ListWidget(registers: registers)),
                     ],
@@ -126,9 +81,9 @@ class _OverlayBaseViewState extends State<OverlayBaseView> {
           context.read<OverlayBloc>().addRegister(
             RegisterEntity(
               title: 'Teste',
-              description: 'Teste',
-              tag: 'Teste',
-              typeObject: 'Teste',
+              description: StackTrace.current.toString(),
+              tag: 'Teste Do tipo de erro',
+              typeObject: runtimeType.toString(),
               typeRegister: TypeRegister.error,
             ),
           );

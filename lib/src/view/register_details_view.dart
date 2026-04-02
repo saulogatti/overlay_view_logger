@@ -26,10 +26,6 @@ class RegisterDetailsView extends StatelessWidget {
             label: 'Data de criação',
             value: register.createdAt.toIso8601String(),
           ),
-          _DetailItem(
-            label: 'Data de atualização',
-            value: register.updatedAt.toIso8601String(),
-          ),
         ],
       ),
     );

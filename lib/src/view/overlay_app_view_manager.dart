@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'overlay_app_view.dart';
 
 class OverlayAppViewManager {
@@ -6,17 +7,12 @@ class OverlayAppViewManager {
 
   static final ValueNotifier<Offset> _position = ValueNotifier(Offset.zero);
 
-  static void hideOverlay(BuildContext context) {
-    if (overlayEntry != null) {
-      removeOverlayAppView(context);
-    }
-  }
-
-  static void removeOverlayAppView(BuildContext context) {
+  static void removeOverlayAppView() {
     if (overlayEntry != null) {
       overlayEntry?.remove();
     }
     overlayEntry = null;
+    _position.value = Offset.zero;
   }
 
   static void showOverlayAppView(
@@ -31,7 +27,7 @@ class OverlayAppViewManager {
     if (width == 0 || height == 0) {
       throw Exception('Width and height must be greater than 0');
     }
-
+    _position.value = Offset(0, height / 2);
     overlayEntry = OverlayEntry(
       builder: (context) => ValueListenableBuilder<Offset>(
         valueListenable: _position,
@@ -46,7 +42,7 @@ class OverlayAppViewManager {
               },
               child: Material(
                 child: Container(
-                  color: Colors.yellow,
+                  color: Colors.black.withAlpha(128),
                   width: width,
                   height: height,
                   child: const OverlayAppView(),

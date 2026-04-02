@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overlay_view_logger/src/view/extensions/registry_extension.dart';
 
 import '../../domain/entities/register_entitie.dart';
 import '../register_details_view.dart';
@@ -23,11 +24,44 @@ class CardWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(register.updatedAt.toIso8601String()),
-              Text(register.title),
-              Text(register.tag),
-              Text(register.typeObject),
-              Text(register.typeRegister.name),
+              // XX/XX/XXXX 00:00:00.000
+              //  typeRegister [TypeObject]
+              //    Title - Tag
+              Text(
+                register.formattedCreatedAt,
+                style: TextStyle(fontSize: 12, color: register.color),
+              ),
+              const SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                spacing: 12,
+                children: [
+                  Text(
+                    register.typeRegister.name,
+                    style: TextStyle(color: register.color),
+                  ),
+                  Text(
+                    register.typeObject,
+                    style: TextStyle(color: register.color),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                spacing: 12,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    register.title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: register.color,
+                    ),
+                  ),
+                  Text(register.tag, style: TextStyle(color: register.color)),
+                ],
+              ),
             ],
           ),
         ),

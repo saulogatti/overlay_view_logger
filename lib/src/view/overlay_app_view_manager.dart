@@ -27,7 +27,7 @@ class OverlayAppViewManager {
     if (width == 0 || height == 0) {
       throw Exception('Width and height must be greater than 0');
     }
-
+    _position.value = Offset(0, height / 2);
     overlayEntry = OverlayEntry(
       builder: (context) => ValueListenableBuilder<Offset>(
         valueListenable: _position,

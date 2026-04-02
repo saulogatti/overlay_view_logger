@@ -14,6 +14,8 @@ import '../../domain/repositories/register_repository.dart';
 /// Esta implementação encapsula a interação com a camada de dados e devolve o
 /// resultado no formato [Result], evitando propagar exceções para a camada de
 /// view (failures são convertidas em [ErrorObj]).
+///
+/// {@category controllers}
 class RegisterRepositoryImpl implements RegisterRepository {
   static RegisterRepositoryImpl? _instance;
   final DataManager dataManager = DataManager(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'overlay_app_view.dart';
 
+/// {@category ui}
+/// Responsável por controlar a exibição/remoção do `OverlayAppView` na tela.
 class OverlayAppViewManager {
   static OverlayEntry? overlayEntry;
 

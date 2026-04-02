@@ -4,6 +4,8 @@ import '../../core/errors/error_obj.dart';
 import '../../core/result/result_obj.dart';
 import '../entities/register_entitie.dart';
 
+/// {@category controllers}
+/// Contrato do repositório responsável por operar dados de `RegisterEntity`.
 abstract interface class RegisterRepository {
   Future<Result<List<RegisterEntity>, ErrorObj>> addRegister(
     RegisterEntity register,

@@ -1,0 +1,19 @@
+# dartdoc:
+#   categories:
+#     ui:
+#       markdown: doc/ui.md
+#       displayName: UI
+#     controllers:
+#       markdown: doc/controllers.md
+#       displayName: Controllers
+#     domain_data:
+#       markdown: doc/domain_data.md
+#       displayName: Domínio e Dados
+#   categoryOrder: [ui, controllers, domain_data]
+#   # Inclui bibliotecas que ficam em `lib/src` e podem não ser alcançadas
+#   # diretamente pelo entrypoint/export público.
+#   includeExternal:
+#     - src/view/controllers/overlay_bloc.dart
+#     - src/view/controllers/overlay_bloc_state.dart
+#   # Mostra categoria mesmo que ainda não tenha elementos categorizados.
+#   showUndocumentedCategories: false

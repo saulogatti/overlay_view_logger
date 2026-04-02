@@ -6,6 +6,9 @@ import '../../domain/entities/register_entitie.dart';
 import '../../domain/repositories/register_repository.dart';
 import 'overlay_bloc_state.dart';
 
+/// {@category controllers}
+/// Controller de estados do overlay: busca registros no repositório e emite
+/// loading/success/error para a camada de visão.
 class OverlayBloc extends Cubit<OverlayBlocState> {
   late final RegisterRepository _registerRepository;
   OverlayBloc({required RegisterRepository registerRepository})

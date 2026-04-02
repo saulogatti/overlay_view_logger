@@ -5,12 +5,16 @@ void main() {
   runApp(const MainApp());
 }
 
+/// {@category ui}
+/// Página inicial do exemplo, com ações para exibir/remover o overlay.
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
+/// {@category ui}
+/// Widget raiz do app, responsável por configurar tema e rota inicial.
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
   @override

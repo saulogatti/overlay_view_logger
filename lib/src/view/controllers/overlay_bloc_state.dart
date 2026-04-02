@@ -4,6 +4,8 @@ import '../../domain/entities/register_entitie.dart';
 
 part 'overlay_bloc_state.freezed.dart';
 
+/// {@category controllers}
+/// Estados emitidos pelo `OverlayBloc` durante as operações do overlay.
 @freezed
 sealed class OverlayBlocState with _$OverlayBlocState {
   const factory OverlayBlocState.error({required ErrorObj error}) =

@@ -1,6 +1,9 @@
 export 'src/core/type_register.dart';
+export 'src/data/manager/data_manager.dart';
 export 'src/data/repositories/register_repository_impl.dart';
 export 'src/domain/entities/register_entitie.dart';
 export 'src/domain/repositories/register_repository.dart';
+export 'src/view/controllers/overlay_bloc.dart';
+export 'src/view/controllers/overlay_bloc_state.dart';
 export 'src/view/overlay_app_view.dart';
 export 'src/view/overlay_app_view_manager.dart';

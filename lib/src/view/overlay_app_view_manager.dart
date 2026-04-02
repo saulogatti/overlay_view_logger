@@ -7,17 +7,12 @@ class OverlayAppViewManager {
 
   static final ValueNotifier<Offset> _position = ValueNotifier(Offset.zero);
 
-  static void hideOverlay(BuildContext context) {
-    if (overlayEntry != null) {
-      removeOverlayAppView(context);
-    }
-  }
-
   static void removeOverlayAppView(BuildContext context) {
     if (overlayEntry != null) {
       overlayEntry?.remove();
     }
     overlayEntry = null;
+    _position.value = Offset.zero;
   }
 
   static void showOverlayAppView(

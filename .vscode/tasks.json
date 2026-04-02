@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Servir docs com dhttpd",
+			"type": "shell",
+			"command": "dart",
+			"args": [
+				"pub",
+				"global",
+				"run",
+				"dhttpd",
+				"--path",
+				"docs",
+				"--host",
+				"localhost",
+				"--port",
+				"8080"
+			],
+			"isBackground": true
+		}
+	]
+}
